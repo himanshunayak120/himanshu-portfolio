@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu — B2B SaaS Sales</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #161b22;
+    --bg2: #1f2937;
+    --bg3: #273244;
+    --surface: #232d3f;
+    --border: #2e3d52;
+    --accent: #38bdf8;
+    --accent2: #818cf8;
+    --accent3: #34d399;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --light: #f1f5f9;
+    --gold: #fbbf24;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(22, 27, 34, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(56, 189, 248, 0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(129, 140, 248, 0.06) 0%, transparent 70%);
+  }
+
+  /* Animated mesh lines */
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    color: var(--accent);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+  .hero-tag::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 800; line-height: 1.1;
+    color: var(--light);
+    margin-bottom: 0.4rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-desc {
+    color: var(--muted);
+    font-size: 0.97rem;
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #0ea5e9);
+    color: #0f172a;
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700; font-size: 0.9rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500; font-size: 0.9rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* STATS CARDS (right side) */
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .stat-card.c1::before { background: linear-gradient(90deg, var(--accent), transparent); }
+  .stat-card.c2::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .stat-card.c3::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .stat-card.c4::before { background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .stat-icon { font-size: 1.3rem; margin-bottom: 0.6rem; }
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem; font-weight: 800;
+    color: var(--light);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+
+  /* SECTION LAYOUT */
+  section { padding: 5rem 2.5rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800; color: var(--light);
+    margin-bottom: 0.5rem;
+  }
+  .section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 3rem; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 2.5rem;
+  }
+
+  /* EXPERIENCE */
+  .exp-section { background: var(--bg); }
+
+  .exp-timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 2px 1fr;
+    gap: 0 2rem;
+    position: relative;
+  }
+
+  .exp-date {
+    text-align: right;
+    padding-top: 0.2rem;
+    padding-bottom: 2.5rem;
+  }
+  .exp-date-range {
+    font-size: 0.8rem; color: var(--accent);
+    font-weight: 600; letter-spacing: 0.04em;
+  }
+  .exp-company {
+    font-size: 0.75rem; color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  .exp-line {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .exp-dot {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+    flex-shrink: 0; margin-top: 0.35rem;
+    z-index: 1;
+  }
+  .exp-connector {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--border));
+    margin-top: 4px;
+  }
+  .exp-item:last-child .exp-connector { display: none; }
+
+  .exp-content {
+    padding-bottom: 2.5rem;
+  }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--light); margin-bottom: 0.2rem;
+  }
+  .exp-org { font-size: 0.85rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.8rem; }
+
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+  .exp-tag {
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.15);
+    color: var(--accent);
+    font-size: 0.72rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.9rem; color: var(--muted);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+    position: relative; line-height: 1.55;
+  }
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem;
+  }
+  .exp-bullets li strong { color: var(--text); font-weight: 600; }
+
+  /* ACHIEVEMENTS */
+  .achievements-section { background: var(--bg2); }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  .ach-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .ach-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .ach-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .ach-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--light); margin-bottom: 0.4rem;
+  }
+  .ach-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+  .ach-highlight {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--accent3); display: block; margin-bottom: 0.2rem;
+  }
+
+  /* METRICS */
+  .metrics-section { background: var(--bg); }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .metric-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .metric-label {
+    font-size: 0.78rem; color: var(--accent);
+    font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .metric-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem; font-weight: 800;
+    color: var(--light); margin-bottom: 0.6rem;
+  }
+  .metric-desc {
+    font-size: 0.84rem; color: var(--muted); line-height: 1.5;
+  }
+  .skills-section { background: var(--bg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-pill {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .skill-pill:hover {
+    background: rgba(56,189,248,0.1);
+    border-color: rgba(56,189,248,0.3);
+    color: var(--accent);
+  }
+
+  /* MARKETS */
+  .markets-row {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .market-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem; color: var(--text); font-weight: 500;
+  }
+  .market-flag { font-size: 1.1rem; }
+
+  /* EDUCATION */
+  .edu-section { background: var(--bg2); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--accent2); }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--light); margin-bottom: 0.3rem;
+  }
+  .edu-inst { font-size: 0.875rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.3rem; }
+  .edu-year { font-size: 0.8rem; color: var(--muted); }
+
+  /* TESTIMONIALS */
+  .testimonials-section { background: var(--bg2); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .testimonial-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .testimonial-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute; top: 0.5rem; left: 1rem;
+    font-size: 2.5rem; color: rgba(56,189,248,0.15);
+    font-family: Georgia, serif;
+  }
+  .testimonial-text {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; font-style: italic;
+    padding-top: 0.5rem;
+  }
+  .testimonial-meta { margin-top: auto; }
+  .testimonial-author {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; color: var(--light);
+    font-size: 0.9rem;
+  }
+  .testimonial-role {
+    font-size: 0.78rem; color: var(--accent);
+    margin-top: 0.2rem; font-weight: 500;
+  }
+  .contact-section {
+    background: var(--bg);
+    text-align: center;
+  }
+  .contact-inner {
+    max-width: 600px; margin: 0 auto;
+  }
+  .contact-links {
+    display: flex; justify-content: center;
+    gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.65rem 1.3rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.875rem; font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 1.25rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    section { padding: 3.5rem 1.25rem; }
+    .exp-item { grid-template-columns: 0 2px 1fr; }
+    .exp-date { display: none; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .divider { margin: 0 1.25rem; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HK</div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#metrics">Metrics</a>
+    <a href="#skills">Skills</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+
+      <h1>Himanshu<br><span>Kumar</span></h1>
+      <p class="hero-title">B2B SaaS Sales · Full-Cycle Closer · Delhi NCR</p>
+      <p class="hero-desc">
+        2.8 years turning complex SaaS deals from cold outreach to signed contracts. 
+        SDR by title — Account Executive by execution. I own the pipeline, run discovery, 
+        handle objections, and close.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:himanshu@email.com" class="btn-primary">Get in Touch</a>
+        <a href="#experience" class="btn-ghost">View Work</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card c1 reveal">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value">₹1Cr+</div>
+        <div class="stat-label">Revenue Generated (2.8Y)</div>
+      </div>
+      <div class="stat-card c2 reveal">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value">120%</div>
+        <div class="stat-label">Avg Quota Attainment</div>
+      </div>
+      <div class="stat-card c3 reveal">
+        <div class="stat-icon">📈</div>
+        <div class="stat-value">30%</div>
+        <div class="stat-label">Pipeline Growth YoY</div>
+      </div>
+      <div class="stat-card c4 reveal">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value">8×</div>
+        <div class="stat-label">Best Consultant (1Y)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="exp-section" id="experience">
+  <div class="container">
+    <p class="section-eyebrow">Career</p>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Full-cycle sales across SaaS, fintech, and travel verticals — India, UAE, Australia &amp; Europe.</p>
+
+    <div class="exp-timeline">
+
+      <!-- Perfect Ventures -->
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-range">Aug 2025 – Present</div>
+          <div class="exp-company">Current Role</div>
+        </div>
+        <div class="exp-line">
+          <div class="exp-dot"></div>
+          <div class="exp-connector"></div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">SDR (Full-Cycle)</div>
+          <div class="exp-org">Perfect Ventures</div>
+          <p style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.6rem; font-style: italic;">Seeking AE role to scale beyond SDR scope and own full account lifecycle</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Lead Generation</span>
+            <span class="exp-tag">Discovery</span>
+            <span class="exp-tag">Closing</span>
+            <span class="exp-tag">HubSpot</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Owns the complete sales cycle — from outbound prospecting through negotiation and closure, operating beyond a traditional SDR scope</li>
+            <li>Manages enterprise accounts including <strong>Pine Labs, Greyquest, Chola Investment, Fyers</strong> and <strong>Uber Eats</strong></li>
+            <li>Drives pipeline velocity using Apollo.io, Lemlist, and LinkedIn Sales Navigator</li>
+            <li>Applies MEDDIC and BANT frameworks to qualify and prioritise high-value opportunities</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Broadway Infotech -->
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-range">2023 – 2025</div>
+          <div class="exp-company">Previous Role</div>
+        </div>
+        <div class="exp-line">
+          <div class="exp-dot" style="background:var(--accent2)"></div>
+          <div class="exp-connector"></div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Inside Sales Associate</div>
+          <div class="exp-org">Broadway Infotech</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Full-Cycle</span>
+            <span class="exp-tag">SaaS</span>
+            <span class="exp-tag">International</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Ran full-cycle deals from inbound qualification to closed-won for a B2B SaaS product</li>
+            <li>Built and maintained relationships across <strong>India, Australia, UAE and European</strong> markets</li>
+            <li>Consistently exceeded quota — contributed to <strong>30% pipeline growth</strong></li>
+            <li>Developed objection-handling playbooks still used by the team</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pickyourtrail -->
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          <div class="exp-date-range">2022 – 2023</div>
+          <div class="exp-company">First Role</div>
+        </div>
+        <div class="exp-line">
+          <div class="exp-dot" style="background:var(--accent3)"></div>
+          <div class="exp-connector"></div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Account Consultant</div>
+          <div class="exp-org">Pickyourtrail</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Consultative Sales</span>
+            <span class="exp-tag">Account Management</span>
+            <span class="exp-tag">Client Relations</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Managed high-value travel accounts with a consultative, needs-first sales approach</li>
+            <li>Recognised with the <strong>Best Consultant Award 8 times</strong> for exceptional client outcomes</li>
+            <li>Built a foundation in discovery, needs analysis, and relationship-driven closing</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements-section" id="achievements">
+  <div class="container">
+    <p class="section-eyebrow">Impact</p>
+    <h2 class="section-title">Key Achievements</h2>
+    <p class="section-sub">Numbers that tell the real story.</p>
+
+    <div class="achievements-grid">
+      <div class="ach-card reveal">
+        <div class="ach-icon">💰</div>
+        <span class="ach-highlight">₹1 Crore+</span>
+        <h3>Revenue Generated</h3>
+        <p>Directly sourced and closed deals contributing over ₹1Cr in revenue across roles — not assisted, not influenced. Closed.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🎯</div>
+        <span class="ach-highlight">120%</span>
+        <h3>Quota Attainment</h3>
+        <p>Consistently exceeded monthly and quarterly targets, demonstrating repeatable sales execution and pipeline discipline.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">📊</div>
+        <span class="ach-highlight">30%</span>
+        <h3>Pipeline Growth</h3>
+        <p>Contributed to a 30% increase in qualified pipeline through structured outbound motions and sharper ICP targeting.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🏆</div>
+        <span class="ach-highlight">8× Awarded</span>
+        <h3>Best Consultant</h3>
+        <p>Recognised eight times at Pickyourtrail for outstanding client outcomes and consultative selling — a record within the team.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🌏</div>
+        <span class="ach-highlight">4 Markets</span>
+        <h3>International Exposure</h3>
+        <p>Sold across India, UAE, Australia, and Europe — adapting tone, pricing strategy and deal cycles to each market.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🏢</div>
+        <span class="ach-highlight">Enterprise</span>
+        <h3>Key Accounts</h3>
+        <p>Managed and closed deals with Pine Labs, Greyquest, Chola Investment, Fyers, and Uber Eats — not SMB, enterprise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEAL METRICS -->
+<section class="metrics-section" id="metrics">
+  <div class="container">
+    <p class="section-eyebrow">Performance</p>
+    <h2 class="section-title">Deal Cycle Intelligence</h2>
+    <p class="section-sub">Metrics that matter — cycle length, deal size, and conversion rates.</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card reveal">
+        <div class="metric-label">Average Deal Cycle</div>
+        <div class="metric-value">45–60 Days</div>
+        <p class="metric-desc">From first touch to contract signature across SaaS and fintech verticals</p>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-label">Typical ASP Range</div>
+        <div class="metric-value">₹8L – ₹25L</div>
+        <p class="metric-desc">Annual Recurring Revenue range — mix of SMB growth and enterprise deals</p>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-label">Win Rate</div>
+        <div class="metric-value">35–40%</div>
+        <p class="metric-desc">Qualified lead to closed-won conversion across all markets</p>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-label">Avg Deal Expansion</div>
+        <div class="metric-value">+15%</div>
+        <p class="metric-desc">Additional revenue from negotiation leverage and add-on modules</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
+        <strong style="color: var(--text);">Sales Philosophy:</strong> I don't just hit quota — I architect deals. Every interaction is mapped to MEDDIC stages. Pipeline is scrubbed weekly. Objections are documented and resolved systematically. The goal isn't faster — it's smarter.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="skills-section" id="skills">
+  <div class="container">
+    <p class="section-eyebrow">Toolkit</p>
+    <h2 class="section-title">Skills &amp; Stack</h2>
+    <p class="section-sub">What I use to source, qualify, and close deals.</p>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Sales Execution</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Full-Cycle Closing</span>
+          <span class="skill-pill">Discovery &amp; Qualification</span>
+          <span class="skill-pill">Objection Handling</span>
+          <span class="skill-pill">Negotiation</span>
+          <span class="skill-pill">Outbound Prospecting</span>
+          <span class="skill-pill">Pipeline Management</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Methodologies</div>
+        <div class="skill-pills">
+          <span class="skill-pill">MEDDIC</span>
+          <span class="skill-pill">BANT</span>
+          <span class="skill-pill">Consultative Selling</span>
+          <span class="skill-pill">Value-Based Selling</span>
+          <span class="skill-pill">ICP Definition</span>
+          <span class="skill-pill">GTM Strategy</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Tools &amp; Tech</div>
+        <div class="skill-pills">
+          <span class="skill-pill">HubSpot CRM</span>
+          <span class="skill-pill">Apollo.io</span>
+          <span class="skill-pill">Lemlist</span>
+          <span class="skill-pill">LinkedIn Sales Navigator</span>
+          <span class="skill-pill">ZoomInfo</span>
+          <span class="skill-pill">Salesforce</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Verticals</div>
+        <div class="skill-pills">
+          <span class="skill-pill">B2B SaaS</span>
+          <span class="skill-pill">Fintech</span>
+          <span class="skill-pill">Travel Tech</span>
+          <span class="skill-pill">IT Services</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="markets-row">
+      <div class="market-badge"><span class="market-flag">🇮🇳</span> India</div>
+      <div class="market-badge"><span class="market-flag">🇦🇪</span> UAE</div>
+      <div class="market-badge"><span class="market-flag">🇦🇺</span> Australia</div>
+      <div class="market-badge"><span class="market-flag">🇪🇺</span> Europe</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section class="edu-section" id="education">
+  <div class="container">
+    <p class="section-eyebrow">Education</p>
+    <h2 class="section-title">Academic Background</h2>
+    <p class="section-sub">Strong analytical foundation paired with technical depth.</p>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">Master of Computer Applications (MCA)</div>
+        <div class="edu-inst">Lovely Professional University</div>
+        <div class="edu-year">2022 – 2024</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">BSc Mathematics</div>
+        <div class="edu-inst">Aligarh Muslim University</div>
+        <div class="edu-year">2019 – 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <p class="section-eyebrow">Social Proof</p>
+    <h2 class="section-title">What Managers Say</h2>
+    <p class="section-sub">Feedback from colleagues and leaders who've worked with me.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">
+          "Himanshu doesn't just prospect — he architects deals. His discovery conversations are surgical. He walks in with a 90-day roadmap and closes methodically. Doesn't cut corners on qualification."
+        </p>
+        <div class="testimonial-meta">
+          <div class="testimonial-author">Rahul Verma</div>
+          <div class="testimonial-role">Sales Lead, Broadway Infotech</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">
+          "Eight Best Consultant Awards in one year isn't luck. It's consistency. Himanshu's approach to client relationships is consultative, not transactional. Results speak for themselves."
+        </p>
+        <div class="testimonial-meta">
+          <div class="testimonial-author">Priya Nair</div>
+          <div class="testimonial-role">Manager, Pickyourtrail</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">
+          "Full-cycle closing as an SDR is rare. Himanshu owns every stage — from outbound strategy to contract negotiation. He brings an AE mindset to his current role. Natural fit for Account Executive positions."
+        </p>
+        <div class="testimonial-meta">
+          <div class="testimonial-author">Akshay Singh</div>
+          <div class="testimonial-role">Director, Perfect Ventures</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <p class="section-eyebrow">Let's Talk</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-links">
+        <a href="mailto:himanshu@email.com" class="contact-link">✉️ Email Me</a>
+        <a href="https://linkedin.com/in/himanshu" target="_blank" class="contact-link">💼 LinkedIn</a>
+        <a href="tel:+91XXXXXXXXXX" class="contact-link">📞 Call Me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Himanshu Kumar · B2B SaaS Sales Professional · Noida, Delhi NCR</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
