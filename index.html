@@ -3,24 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Himanshu — B2B SaaS Sales</title>
+<title>Himanshu Kumar | B2B SaaS Sales</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #161b22;
-    --bg2: #1f2937;
-    --bg3: #273244;
-    --surface: #232d3f;
-    --border: #2e3d52;
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1f2937;
+    --surface: #1a2233;
+    --surface2: #202b3d;
+    --border: #263347;
+    --border2: #2e3d52;
     --accent: #38bdf8;
     --accent2: #818cf8;
     --accent3: #34d399;
+    --accent4: #f472b6;
     --text: #e2e8f0;
-    --muted: #94a3b8;
+    --muted: #8899aa;
     --light: #f1f5f9;
     --gold: #fbbf24;
+    --danger: #f87171;
   }
 
   html { scroll-behavior: smooth; }
@@ -34,59 +38,122 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
+  /* ── CURSOR GLOW ── */
+  .cursor-glow {
+    pointer-events: none;
+    position: fixed;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 200;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 2.5rem;
-    background: rgba(22, 27, 34, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(38,51,71,0.6);
+    transition: background 0.3s;
   }
   .nav-logo {
     font-family: 'Syne', sans-serif;
     font-weight: 800; font-size: 1.1rem;
     color: var(--accent);
     letter-spacing: 0.04em;
+    position: relative;
   }
-  .nav-links { display: flex; gap: 2rem; }
+  .nav-logo::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-logo:hover::after { transform: scaleX(1); }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-links a {
     color: var(--muted); text-decoration: none;
-    font-size: 0.875rem; font-weight: 500;
+    font-size: 0.84rem; font-weight: 500;
     transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -3px; left: 0; right: 0; height: 1px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
   }
   .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent) !important;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.82rem !important;
+    transition: background 0.2s, border-color 0.2s !important;
+  }
+  .nav-cta:hover { background: rgba(56,189,248,0.18) !important; border-color: var(--accent) !important; }
+  .nav-cta::after { display: none !important; }
 
-  /* HERO */
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center;
-    padding: 6rem 2.5rem 4rem;
-    position: relative;
-    overflow: hidden;
+    padding: 7rem 2.5rem 4rem;
+    position: relative; overflow: hidden;
   }
 
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(56, 189, 248, 0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(129, 140, 248, 0.06) 0%, transparent 70%);
   }
-
-  /* Animated mesh lines */
   .hero-bg::before {
     content: '';
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridMove 20s linear infinite;
+      linear-gradient(rgba(56,189,248,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    animation: gridShift 25s linear infinite;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   }
-  @keyframes gridMove {
+  @keyframes gridShift {
     0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
+    100% { background-position: 56px 56px; }
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 55% at 75% 35%, rgba(56,189,248,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 45% at 15% 70%, rgba(129,140,248,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 25% 30% at 85% 75%, rgba(52,211,153,0.05) 0%, transparent 65%);
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: orbFloat 8s ease-in-out infinite;
+    z-index: 0;
+  }
+  .orb1 { width:300px; height:300px; background:rgba(56,189,248,0.05); top:10%; right:20%; animation-delay:0s; }
+  .orb2 { width:200px; height:200px; background:rgba(129,140,248,0.06); bottom:20%; left:10%; animation-delay:-3s; }
+  .orb3 { width:150px; height:150px; background:rgba(52,211,153,0.04); top:50%; right:5%; animation-delay:-5s; }
+  @keyframes orbFloat {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
   }
 
   .hero-inner {
@@ -98,145 +165,184 @@
 
   .hero-tag {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.25);
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.2);
     color: var(--accent);
     padding: 0.35rem 0.9rem;
     border-radius: 100px;
-    font-size: 0.78rem; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
     margin-bottom: 1.4rem;
+    animation: fadeSlideDown 0.6s ease both;
   }
-  .hero-tag::before {
-    content: ''; width: 7px; height: 7px;
-    background: var(--accent); border-radius: 50%;
+  .hero-tag-dot {
+    width: 6px; height: 6px;
+    background: var(--accent3); border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
+    0%,100% { opacity:1; transform:scale(1); box-shadow:0 0 0 0 rgba(52,211,153,0.5); }
+    50% { opacity:0.7; transform:scale(0.8); box-shadow:0 0 0 4px rgba(52,211,153,0); }
   }
 
   .hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
-    font-weight: 800; line-height: 1.1;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 800; line-height: 1.05;
     color: var(--light);
     margin-bottom: 0.4rem;
+    animation: fadeSlideUp 0.7s 0.1s ease both;
   }
-  .hero h1 span {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+  .hero h1 .name-gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, var(--accent4) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .hero-title {
+  .hero-subtitle {
     font-family: 'Syne', sans-serif;
-    font-size: 1.1rem; font-weight: 600;
+    font-size: 1rem; font-weight: 600;
     color: var(--muted);
-    margin-bottom: 1.4rem;
-    letter-spacing: 0.02em;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.03em;
+    animation: fadeSlideUp 0.7s 0.2s ease both;
   }
+
+  /* Typewriter */
+  .typewriter-wrap {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    animation: fadeSlideUp 0.7s 0.25s ease both;
+  }
+  .typewriter-label { font-size: 0.8rem; color: var(--muted); }
+  .typewriter {
+    font-size: 0.88rem; color: var(--accent3); font-weight: 600;
+    border-right: 2px solid var(--accent3);
+    white-space: nowrap; overflow: hidden;
+    animation: blink 0.75s step-end infinite;
+  }
+  @keyframes blink { 50% { border-color: transparent; } }
 
   .hero-desc {
     color: var(--muted);
-    font-size: 0.97rem;
-    line-height: 1.75;
+    font-size: 0.94rem;
+    line-height: 1.8;
     max-width: 440px;
     margin-bottom: 2rem;
+    animation: fadeSlideUp 0.7s 0.3s ease both;
   }
 
   .hero-cta {
     display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeSlideUp 0.7s 0.4s ease both;
   }
   .btn-primary {
     background: linear-gradient(135deg, var(--accent), #0ea5e9);
-    color: #0f172a;
-    padding: 0.75rem 1.8rem;
+    color: #0a1628;
+    padding: 0.8rem 1.9rem;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 700; font-size: 0.9rem;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(56,189,248,0.25);
   }
-  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-primary:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(56,189,248,0.35); }
   .btn-ghost {
     background: transparent;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border2);
     color: var(--text);
-    padding: 0.75rem 1.8rem;
+    padding: 0.8rem 1.9rem;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500; font-size: 0.9rem;
-    transition: border-color 0.2s, color 0.2s;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
   }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-  /* STATS CARDS (right side) */
+  /* STAT CARDS */
   .hero-stats {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
   }
   .stat-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 1.4rem 1.2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
   }
-  .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stat-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(56,189,248,0.1);
+  }
   .stat-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
+    transition: opacity 0.3s;
   }
+  .stat-card:hover::before { opacity: 1.5; }
   .stat-card.c1::before { background: linear-gradient(90deg, var(--accent), transparent); }
   .stat-card.c2::before { background: linear-gradient(90deg, var(--accent2), transparent); }
   .stat-card.c3::before { background: linear-gradient(90deg, var(--accent3), transparent); }
   .stat-card.c4::before { background: linear-gradient(90deg, var(--gold), transparent); }
 
-  .stat-icon { font-size: 1.3rem; margin-bottom: 0.6rem; }
+  /* Shimmer on hover */
+  .stat-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .stat-card:hover::after { opacity: 1; }
+
+  .stat-icon { font-size: 1.3rem; margin-bottom: 0.55rem; }
   .stat-value {
     font-family: 'Syne', sans-serif;
-    font-size: 1.7rem; font-weight: 800;
-    color: var(--light);
-    line-height: 1;
+    font-size: 1.75rem; font-weight: 800;
+    color: var(--light); line-height: 1;
     margin-bottom: 0.3rem;
   }
-  .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+  .stat-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
 
-  /* SECTION LAYOUT */
-  section { padding: 5rem 2.5rem; }
+  /* ── SECTIONS ── */
+  section { padding: 5.5rem 2.5rem; }
   .container { max-width: 1100px; margin: 0 auto; }
 
   .section-eyebrow {
-    font-size: 0.75rem; font-weight: 700;
-    color: var(--accent); letter-spacing: 0.12em;
-    text-transform: uppercase; margin-bottom: 0.6rem;
+    font-size: 0.72rem; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 20px; height: 1px; background: var(--accent);
   }
   .section-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 800; color: var(--light);
     margin-bottom: 0.5rem;
   }
-  .section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 3rem; }
+  .section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 3rem; max-width: 520px; }
 
-  /* DIVIDER */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
     margin: 0 2.5rem;
   }
 
-  /* EXPERIENCE */
+  /* ── EXPERIENCE ── */
   .exp-section { background: var(--bg); }
-
-  .exp-timeline { display: flex; flex-direction: column; gap: 0; }
+  .exp-timeline { display: flex; flex-direction: column; }
 
   .exp-item {
     display: grid;
-    grid-template-columns: 180px 2px 1fr;
+    grid-template-columns: 170px 2px 1fr;
     gap: 0 2rem;
     position: relative;
   }
@@ -247,71 +353,221 @@
     padding-bottom: 2.5rem;
   }
   .exp-date-range {
-    font-size: 0.8rem; color: var(--accent);
+    font-size: 0.78rem; color: var(--accent);
     font-weight: 600; letter-spacing: 0.04em;
   }
-  .exp-company {
-    font-size: 0.75rem; color: var(--muted);
-    margin-top: 0.2rem;
-  }
+  .exp-company { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
 
   .exp-line {
-    position: relative;
     display: flex; flex-direction: column; align-items: center;
+    position: relative;
   }
   .exp-dot {
-    width: 12px; height: 12px;
+    width: 13px; height: 13px;
     background: var(--accent);
     border-radius: 50%;
     border: 2px solid var(--bg);
-    box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
-    flex-shrink: 0; margin-top: 0.35rem;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.15), 0 0 12px rgba(56,189,248,0.3);
+    flex-shrink: 0; margin-top: 0.3rem;
     z-index: 1;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .exp-item:hover .exp-dot {
+    box-shadow: 0 0 0 4px rgba(56,189,248,0.25), 0 0 20px rgba(56,189,248,0.4);
+    transform: scale(1.2);
   }
   .exp-connector {
-    flex: 1;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--accent), var(--border));
+    flex: 1; width: 2px;
+    background: linear-gradient(to bottom, var(--accent), rgba(56,189,248,0.1));
     margin-top: 4px;
   }
   .exp-item:last-child .exp-connector { display: none; }
 
   .exp-content {
     padding-bottom: 2.5rem;
+    transition: transform 0.2s;
   }
+  .exp-item:hover .exp-content { transform: translateX(4px); }
+
   .exp-role {
     font-family: 'Syne', sans-serif;
-    font-size: 1.1rem; font-weight: 700;
+    font-size: 1.12rem; font-weight: 700;
     color: var(--light); margin-bottom: 0.2rem;
   }
-  .exp-org { font-size: 0.85rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.8rem; }
+  .exp-org { font-size: 0.85rem; color: var(--accent2); font-weight: 600; margin-bottom: 0.8rem; }
+
+  .exp-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--accent3);
+    background: rgba(52,211,153,0.08);
+    border: 1px solid rgba(52,211,153,0.2);
+    padding: 0.22rem 0.7rem; border-radius: 100px;
+    margin-bottom: 0.8rem; font-weight: 600; font-style: italic;
+  }
+  .exp-badge::before { content:'↪'; font-style: normal; }
 
   .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
   .exp-tag {
-    background: rgba(56,189,248,0.08);
-    border: 1px solid rgba(56,189,248,0.15);
+    background: rgba(56,189,248,0.07);
+    border: 1px solid rgba(56,189,248,0.14);
     color: var(--accent);
-    font-size: 0.72rem; font-weight: 600;
-    padding: 0.2rem 0.6rem; border-radius: 4px;
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.18rem 0.6rem; border-radius: 4px;
     letter-spacing: 0.04em;
+    transition: background 0.2s, border-color 0.2s;
   }
+  .exp-tag:hover { background: rgba(56,189,248,0.14); border-color: rgba(56,189,248,0.3); }
 
   .exp-bullets { list-style: none; }
   .exp-bullets li {
-    font-size: 0.9rem; color: var(--muted);
-    padding: 0.3rem 0 0.3rem 1.2rem;
-    position: relative; line-height: 1.55;
+    font-size: 0.89rem; color: var(--muted);
+    padding: 0.28rem 0 0.28rem 1.2rem;
+    position: relative; line-height: 1.6;
   }
   .exp-bullets li::before {
     content: '▸';
     position: absolute; left: 0;
-    color: var(--accent); font-size: 0.75rem;
+    color: var(--accent); font-size: 0.72rem; top: 0.36rem;
   }
   .exp-bullets li strong { color: var(--text); font-weight: 600; }
 
-  /* ACHIEVEMENTS */
-  .achievements-section { background: var(--bg2); }
+  /* ── CASE STUDY ── */
+  .case-section { background: var(--bg2); }
 
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .case-card:hover {
+    border-color: rgba(56,189,248,0.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.08);
+  }
+  .case-card::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .case-header {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1.5rem; align-items: start;
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-title-block {}
+  .case-eyebrow {
+    font-size: 0.7rem; color: var(--accent);
+    font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .case-eyebrow::before { content: ''; display: inline-block; width: 14px; height: 1px; background: var(--accent); }
+  .case-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--light); margin-bottom: 0.4rem;
+  }
+  .case-meta { font-size: 0.83rem; color: var(--muted); }
+  .case-meta strong { color: var(--accent2); }
+
+  .case-badges { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+  .case-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+  }
+  .badge-live {
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3);
+    color: var(--accent3);
+  }
+  .badge-live::before {
+    content: ''; width:6px; height:6px; border-radius:50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
+  }
+  .badge-fintech {
+    background: rgba(129,140,248,0.1);
+    border: 1px solid rgba(129,140,248,0.25);
+    color: var(--accent2);
+  }
+
+  .case-body { padding: 2rem; }
+
+  .case-steps {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.2rem; margin-bottom: 1.5rem;
+  }
+  .case-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .case-step:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .case-step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 800;
+    color: var(--accent); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+    opacity: 0.7;
+  }
+  .case-step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--light); margin-bottom: 0.4rem;
+  }
+  .case-step p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+  .case-step p strong { color: var(--text); }
+
+  .case-step.highlight-step {
+    border-color: rgba(52,211,153,0.25);
+    background: linear-gradient(135deg, rgba(52,211,153,0.04), var(--surface2));
+  }
+  .case-step.highlight-step .case-step-num { color: var(--accent3); }
+  .case-step.highlight-step .case-step-title { color: var(--accent3); }
+
+  .case-result {
+    background: linear-gradient(135deg, rgba(56,189,248,0.05), rgba(52,211,153,0.05));
+    border: 1px solid rgba(56,189,248,0.15);
+    border-radius: 12px; padding: 1.3rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1.2rem;
+  }
+  .case-result-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .case-result-text {}
+  .case-result-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--light); margin-bottom: 0.4rem;
+  }
+  .case-result-stats {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.7rem;
+  }
+  .result-stat {
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.2);
+    color: var(--accent);
+    font-size: 0.75rem; font-weight: 700;
+    padding: 0.25rem 0.7rem; border-radius: 6px;
+  }
+  .result-stat.green {
+    background: rgba(52,211,153,0.1);
+    border-color: rgba(52,211,153,0.2);
+    color: var(--accent3);
+  }
+  .result-stat.red {
+    background: rgba(248,113,113,0.1);
+    border-color: rgba(248,113,113,0.2);
+    color: var(--danger);
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-section { background: var(--bg); }
   .achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -320,254 +576,343 @@
   .ach-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
+    border-radius: 16px; padding: 1.5rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     position: relative; overflow: hidden;
+    cursor: default;
   }
-  .ach-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .ach-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.06) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .ach-card:hover { border-color: rgba(129,140,248,0.4); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+  .ach-card:hover::after { opacity: 1; }
   .ach-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
   .ach-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 0.95rem; font-weight: 700;
     color: var(--light); margin-bottom: 0.4rem;
   }
-  .ach-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+  .ach-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
   .ach-highlight {
     font-family: 'Syne', sans-serif;
-    font-size: 1.4rem; font-weight: 800;
+    font-size: 1.45rem; font-weight: 800;
     color: var(--accent3); display: block; margin-bottom: 0.2rem;
   }
 
-  /* METRICS */
-  .metrics-section { background: var(--bg); }
-
+  /* ── METRICS ── */
+  .metrics-section { background: var(--bg2); }
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.2rem;
-    margin-bottom: 2rem;
+    gap: 1.2rem; margin-bottom: 2rem;
   }
   .metric-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
+    border-radius: 16px; padding: 1.5rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
   }
-  .metric-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .metric-card:hover { border-color: rgba(56,189,248,0.35); transform: translateY(-3px); }
+  .metric-card::before {
+    content: '';
+    position: absolute; bottom:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .metric-card:hover::before { transform: scaleX(1); }
   .metric-label {
-    font-size: 0.78rem; color: var(--accent);
-    font-weight: 700; letter-spacing: 0.08em;
+    font-size: 0.72rem; color: var(--accent);
+    font-weight: 700; letter-spacing: 0.1em;
     text-transform: uppercase; margin-bottom: 0.5rem;
   }
   .metric-value {
     font-family: 'Syne', sans-serif;
-    font-size: 1.6rem; font-weight: 800;
-    color: var(--light); margin-bottom: 0.6rem;
+    font-size: 1.65rem; font-weight: 800;
+    color: var(--light); margin-bottom: 0.5rem;
+    line-height: 1.1;
   }
-  .metric-desc {
-    font-size: 0.84rem; color: var(--muted); line-height: 1.5;
-  }
-  .skills-section { background: var(--bg); }
+  .metric-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
+  .philosophy-box {
+    margin-top: 0;
+    padding: 1.5rem 1.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+  }
+  .philosophy-box p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+  .philosophy-box strong { color: var(--text); }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--bg); }
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.3rem;
   }
   .skill-group {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
+    border-radius: 16px; padding: 1.4rem;
+    transition: border-color 0.25s, transform 0.25s;
   }
+  .skill-group:hover { border-color: var(--border2); transform: translateY(-2px); }
   .skill-group-title {
     font-family: 'Syne', sans-serif;
-    font-size: 0.85rem; font-weight: 700;
+    font-size: 0.78rem; font-weight: 700;
     color: var(--accent);
-    letter-spacing: 0.08em; text-transform: uppercase;
+    letter-spacing: 0.1em; text-transform: uppercase;
     margin-bottom: 1rem;
     padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border);
   }
-  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .skill-pill {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
     color: var(--text);
-    font-size: 0.8rem; font-weight: 500;
-    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem; font-weight: 500;
+    padding: 0.28rem 0.7rem;
     border-radius: 6px;
-    transition: background 0.2s, border-color 0.2s;
+    transition: all 0.2s;
+    cursor: default;
   }
   .skill-pill:hover {
-    background: rgba(56,189,248,0.1);
-    border-color: rgba(56,189,248,0.3);
+    background: rgba(56,189,248,0.09);
+    border-color: rgba(56,189,248,0.28);
     color: var(--accent);
+    transform: translateY(-1px);
   }
 
-  /* MARKETS */
   .markets-row {
-    display: flex; flex-wrap: wrap; gap: 0.75rem;
-    margin-top: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.7rem;
+    margin-top: 1.8rem;
   }
   .market-badge {
     display: flex; align-items: center; gap: 0.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem; color: var(--text); font-weight: 500;
+    border-radius: 8px; padding: 0.48rem 1rem;
+    font-size: 0.84rem; color: var(--text); font-weight: 500;
+    transition: border-color 0.2s, transform 0.2s;
   }
-  .market-flag { font-size: 1.1rem; }
+  .market-badge:hover { border-color: var(--accent); transform: translateY(-1px); }
 
-  /* EDUCATION */
+  /* ── EDUCATION ── */
   .edu-section { background: var(--bg2); }
   .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
   .edu-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    transition: border-color 0.2s;
+    border-radius: 16px; padding: 1.5rem;
+    transition: border-color 0.25s, transform 0.2s;
+    position: relative; overflow: hidden;
   }
-  .edu-card:hover { border-color: var(--accent2); }
+  .edu-card::before {
+    content: '';
+    position: absolute; top:0; left:0; bottom:0; width: 3px;
+    background: linear-gradient(to bottom, var(--accent2), transparent);
+  }
+  .edu-card:hover { border-color: rgba(129,140,248,0.35); transform: translateY(-3px); }
   .edu-degree {
     font-family: 'Syne', sans-serif;
     font-size: 1rem; font-weight: 700;
     color: var(--light); margin-bottom: 0.3rem;
   }
-  .edu-inst { font-size: 0.875rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.3rem; }
-  .edu-year { font-size: 0.8rem; color: var(--muted); }
+  .edu-inst { font-size: 0.86rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.3rem; }
+  .edu-year { font-size: 0.78rem; color: var(--muted); }
 
-  /* TESTIMONIALS */
-  .testimonials-section { background: var(--bg2); }
-
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--bg); }
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 1.4rem;
   }
   .testimonial-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
+    border-radius: 16px; padding: 1.6rem;
     display: flex; flex-direction: column; gap: 1rem;
-    transition: border-color 0.2s, transform 0.2s;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     position: relative;
   }
-  .testimonial-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-  .testimonial-card::before {
-    content: '"';
-    position: absolute; top: 0.5rem; left: 1rem;
-    font-size: 2.5rem; color: rgba(56,189,248,0.15);
-    font-family: Georgia, serif;
+  .testimonial-card:hover {
+    border-color: rgba(56,189,248,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+  }
+  .quote-mark {
+    font-size: 3rem; color: rgba(56,189,248,0.1);
+    font-family: Georgia, serif; line-height: 1;
+    margin-bottom: -0.5rem;
   }
   .testimonial-text {
-    font-size: 0.9rem; color: var(--muted);
-    line-height: 1.7; font-style: italic;
-    padding-top: 0.5rem;
+    font-size: 0.88rem; color: var(--muted);
+    line-height: 1.75; font-style: italic;
   }
-  .testimonial-meta { margin-top: auto; }
+  .testimonial-meta { margin-top: auto; padding-top: 0.8rem; border-top: 1px solid var(--border); }
   .testimonial-author {
     font-family: 'Syne', sans-serif;
-    font-weight: 700; color: var(--light);
-    font-size: 0.9rem;
+    font-weight: 700; color: var(--light); font-size: 0.9rem;
   }
   .testimonial-role {
-    font-size: 0.78rem; color: var(--accent);
+    font-size: 0.76rem; color: var(--accent);
     margin-top: 0.2rem; font-weight: 500;
   }
-  .contact-section {
-    background: var(--bg);
-    text-align: center;
-  }
-  .contact-inner {
-    max-width: 600px; margin: 0 auto;
-  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--bg2); text-align: center; }
+  .contact-inner { max-width: 580px; margin: 0 auto; }
+  .contact-desc { font-size: 0.94rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
   .contact-links {
     display: flex; justify-content: center;
-    gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+    gap: 0.9rem; flex-wrap: wrap;
   }
   .contact-link {
     display: flex; align-items: center; gap: 0.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--text);
-    padding: 0.65rem 1.3rem;
-    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 10px;
     text-decoration: none;
     font-size: 0.875rem; font-weight: 500;
-    transition: border-color 0.2s, color 0.2s;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link:hover {
+    border-color: var(--accent); color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .contact-link.primary {
+    background: linear-gradient(135deg, var(--accent), #0ea5e9);
+    border-color: transparent; color: #0a1628;
+    font-weight: 700;
+  }
+  .contact-link.primary:hover { opacity: 0.9; box-shadow: 0 8px 24px rgba(56,189,248,0.3); }
 
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
     background: var(--bg);
     border-top: 1px solid var(--border);
-    padding: 1.5rem 2.5rem;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.8rem;
+    padding: 1.4rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+  footer p { color: var(--muted); font-size: 0.78rem; }
+  .footer-status {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; color: var(--accent3); font-weight: 600;
+  }
+  .footer-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
   }
 
-  /* RESPONSIVE */
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.from-left { transform: translateX(-28px); }
+  .reveal.from-right { transform: translateX(28px); }
+  .reveal.visible { opacity: 1; transform: translate(0); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PROGRESS BAR ── */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 300;
+    transition: transform 0.1s linear;
+  }
+
+  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
     .nav-links { display: none; }
-    .hero { padding: 5rem 1.25rem 3rem; }
+    .hero { padding: 5.5rem 1.25rem 3rem; }
     .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     .hero-stats { grid-template-columns: 1fr 1fr; }
-    section { padding: 3.5rem 1.25rem; }
+    section { padding: 4rem 1.25rem; }
     .exp-item { grid-template-columns: 0 2px 1fr; }
     .exp-date { display: none; }
     .edu-grid { grid-template-columns: 1fr; }
     .divider { margin: 0 1.25rem; }
+    .case-header { grid-template-columns: 1fr; }
+    .case-badges { align-items: flex-start; flex-direction: row; }
+    .case-steps { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
   }
 
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">HK</div>
   <div class="nav-links">
     <a href="#experience">Experience</a>
+    <a href="#casestudy">Case Study</a>
     <a href="#achievements">Achievements</a>
     <a href="#metrics">Metrics</a>
     <a href="#skills">Skills</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
+    <a href="#contact" class="nav-cta">Hire Me →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
   <div class="hero-inner">
     <div class="hero-left">
+      <h1>Himanshu<br><span class="name-gradient">Kumar</span></h1>
+      <p class="hero-subtitle">B2B SaaS Sales · Full-Cycle Closer · Enterprise Accounts</p>
 
-      <h1>Himanshu<br><span>Kumar</span></h1>
-      <p class="hero-title">B2B SaaS Sales · Full-Cycle Closer · Delhi NCR</p>
+      <div class="typewriter-wrap">
+        <span class="typewriter-label">Currently:</span>
+        <span class="typewriter" id="typewriter"></span>
+      </div>
+
       <p class="hero-desc">
-        2.8 years turning complex SaaS deals from cold outreach to signed contracts. 
-        SDR by title — Account Executive by execution. I own the pipeline, run discovery, 
-        handle objections, and close.
+        2.8 years turning complex SaaS deals from cold outreach to signed contracts.
+        SDR by title. Account Executive by execution. I own the pipeline, run discovery,
+        handle objections, and close enterprise deals.
       </p>
       <div class="hero-cta">
-        <a href="mailto:himanshu@email.com" class="btn-primary">Get in Touch</a>
-        <a href="#experience" class="btn-ghost">View Work</a>
+        <a href="mailto:himanshunayak120@gmail.com" class="btn-primary">Let's Talk</a>
+        <a href="#experience" class="btn-ghost">See My Work ↓</a>
       </div>
     </div>
 
@@ -575,7 +920,7 @@
       <div class="stat-card c1 reveal">
         <div class="stat-icon">💰</div>
         <div class="stat-value">₹1Cr+</div>
-        <div class="stat-label">Revenue Generated (2.8Y)</div>
+        <div class="stat-label">Revenue Generated</div>
       </div>
       <div class="stat-card c2 reveal">
         <div class="stat-icon">🎯</div>
@@ -590,7 +935,7 @@
       <div class="stat-card c4 reveal">
         <div class="stat-icon">🏆</div>
         <div class="stat-value">8×</div>
-        <div class="stat-label">Best Consultant (1Y)</div>
+        <div class="stat-label">Best Consultant Award</div>
       </div>
     </div>
   </div>
@@ -603,7 +948,7 @@
   <div class="container">
     <p class="section-eyebrow">Career</p>
     <h2 class="section-title">Experience</h2>
-    <p class="section-sub">Full-cycle sales across SaaS, fintech, and travel verticals — India, UAE, Australia &amp; Europe.</p>
+    <p class="section-sub">Full-cycle sales across SaaS, fintech, and travel: India, UAE, Australia & Europe.</p>
 
     <div class="exp-timeline">
 
@@ -619,19 +964,22 @@
         </div>
         <div class="exp-content">
           <div class="exp-role">SDR (Full-Cycle)</div>
-          <div class="exp-org">Perfect Ventures</div>
-          <p style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.6rem; font-style: italic;">Seeking AE role to scale beyond SDR scope and own full account lifecycle</p>
+          <div class="exp-org">Perfect Ventures · Arxiis AI</div>
+          <div class="exp-badge">Actively pursuing Account Executive roles</div>
           <div class="exp-tags">
+            <span class="exp-tag">Enterprise</span>
             <span class="exp-tag">Lead Generation</span>
             <span class="exp-tag">Discovery</span>
             <span class="exp-tag">Closing</span>
             <span class="exp-tag">HubSpot</span>
+            <span class="exp-tag">AI SaaS</span>
           </div>
           <ul class="exp-bullets">
-            <li>Owns the complete sales cycle — from outbound prospecting through negotiation and closure, operating beyond a traditional SDR scope</li>
+            <li>Owns the complete sales cycle from outbound prospecting through negotiation and closure, operating well beyond a traditional SDR scope</li>
             <li>Manages enterprise accounts including <strong>Pine Labs, Greyquest, Chola Investment, Fyers</strong> and <strong>Uber Eats</strong></li>
-            <li>Drives pipeline velocity using Apollo.io, Lemlist, and LinkedIn Sales Navigator</li>
-            <li>Applies MEDDIC and BANT frameworks to qualify and prioritise high-value opportunities</li>
+            <li>Drove <strong>30% pipeline growth</strong> using Apollo.io, Lemlist, and LinkedIn Sales Navigator for Arxiis AI, Nurix AI, and Karta AI products</li>
+            <li>Applies MEDDIC and BANT frameworks systematically to qualify, prioritise, and close high-value opportunities</li>
+            <li>Mentors junior SDRs on discovery frameworks and objection-handling playbooks</li>
           </ul>
         </div>
       </div>
@@ -639,11 +987,11 @@
       <!-- Broadway Infotech -->
       <div class="exp-item reveal">
         <div class="exp-date">
-          <div class="exp-date-range">2023 – 2025</div>
+          <div class="exp-date-range">Sep 2024 – Apr 2025</div>
           <div class="exp-company">Previous Role</div>
         </div>
         <div class="exp-line">
-          <div class="exp-dot" style="background:var(--accent2)"></div>
+          <div class="exp-dot" style="background:var(--accent2); box-shadow: 0 0 0 3px rgba(129,140,248,0.15), 0 0 12px rgba(129,140,248,0.25);"></div>
           <div class="exp-connector"></div>
         </div>
         <div class="exp-content">
@@ -651,14 +999,16 @@
           <div class="exp-org">Broadway Infotech</div>
           <div class="exp-tags">
             <span class="exp-tag">Full-Cycle</span>
-            <span class="exp-tag">SaaS</span>
+            <span class="exp-tag">B2B SaaS</span>
             <span class="exp-tag">International</span>
+            <span class="exp-tag">HubSpot</span>
           </div>
           <ul class="exp-bullets">
-            <li>Ran full-cycle deals from inbound qualification to closed-won for a B2B SaaS product</li>
+            <li>Owned full sales cycle from cold prospecting through discovery, proposal, negotiation, and closure for enterprise accounts including <strong>Uber Eats</strong> and <strong>Retail Apparel Group</strong></li>
+            <li>Closed <strong>AUD 50,000+</strong> in revenue across 15+ enterprise accounts, achieving <strong>120% quota in first full quarter</strong></li>
+            <li>Cut average sales cycle by <strong>25%</strong> by building structured follow-up cadences and automating pipeline stages in HubSpot</li>
             <li>Built and maintained relationships across <strong>India, Australia, UAE and European</strong> markets</li>
-            <li>Consistently exceeded quota — contributed to <strong>30% pipeline growth</strong></li>
-            <li>Developed objection-handling playbooks still used by the team</li>
+            <li>Developed objection-handling playbooks that were adopted team-wide</li>
           </ul>
         </div>
       </div>
@@ -666,11 +1016,11 @@
       <!-- Pickyourtrail -->
       <div class="exp-item reveal">
         <div class="exp-date">
-          <div class="exp-date-range">2022 – 2023</div>
+          <div class="exp-date-range">Oct 2023 – Sep 2024</div>
           <div class="exp-company">First Role</div>
         </div>
         <div class="exp-line">
-          <div class="exp-dot" style="background:var(--accent3)"></div>
+          <div class="exp-dot" style="background:var(--accent3); box-shadow: 0 0 0 3px rgba(52,211,153,0.15), 0 0 12px rgba(52,211,153,0.25);"></div>
           <div class="exp-connector"></div>
         </div>
         <div class="exp-content">
@@ -682,13 +1032,86 @@
             <span class="exp-tag">Client Relations</span>
           </div>
           <ul class="exp-bullets">
-            <li>Managed high-value travel accounts with a consultative, needs-first sales approach</li>
-            <li>Recognised with the <strong>Best Consultant Award 8 times</strong> for exceptional client outcomes</li>
-            <li>Built a foundation in discovery, needs analysis, and relationship-driven closing</li>
+            <li>Managed 100+ international accounts across UAE and Europe, generating <strong>₹1Cr+ in annual revenue</strong></li>
+            <li>Exceeded quarterly targets by <strong>115% for four consecutive quarters</strong></li>
+            <li>Recognised with the <strong>Best Consultant Award 8 consecutive times</strong>, a record within the team</li>
+            <li>Maintained <strong>98% client satisfaction rate</strong> through proactive account management and tailored solutions</li>
           </ul>
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CASE STUDY -->
+<section class="case-section" id="casestudy">
+  <div class="container">
+    <p class="section-eyebrow">Deal Breakdown</p>
+    <h2 class="section-title">Case Study</h2>
+    <p class="section-sub">A real enterprise deal: from cold rejection to 5 critical vulnerabilities found. Here's exactly how it happened.</p>
+
+    <div class="case-card reveal">
+      <div class="case-header">
+        <div class="case-title-block">
+          <div class="case-eyebrow">Arxiis AI · Fintech · Enterprise Cybersecurity</div>
+          <div class="case-title">Suryoday Small Finance Bank</div>
+          <div class="case-meta">
+            CISO-level engagement · <strong>5 critical vulnerabilities found</strong> · Deal in active discussion · 2026
+          </div>
+        </div>
+        <div class="case-badges">
+          <span class="case-badge badge-live">Pipeline Active</span>
+          <span class="case-badge badge-fintech">Enterprise · Fintech</span>
+        </div>
+      </div>
+
+      <div class="case-body">
+        <div class="case-steps">
+
+          <div class="case-step reveal">
+            <div class="case-step-num">Step 01 · Prospecting</div>
+            <div class="case-step-title">Multi-channel CISO Outreach</div>
+            <p>Identified and reached the CISO of Suryoday Small Finance Bank, a regulated fintech with <strong>42L+ customers</strong> and 700+ touchpoints. Executed a coordinated outreach: cold call, targeted email, and LinkedIn network engagement to secure a first conversation.</p>
+          </div>
+
+          <div class="case-step reveal">
+            <div class="case-step-num">Step 02 · Objection</div>
+            <div class="case-step-title">"We Already Have This in Place"</div>
+            <p>On the call, the CISO dismissed the pitch immediately. <strong>"We don't need it, we already have this covered."</strong> A standard SDR would have thanked them and moved on. Instead, a reframe was ready: <em>"Most organizations feel protected, until an attacker proves otherwise."</em> He wasn't convinced yet.</p>
+          </div>
+
+          <div class="case-step highlight-step reveal">
+            <div class="case-step-num">Step 03 · The Pivot</div>
+            <div class="case-step-title">Proof Over Pitch: The Assessment Bet</div>
+            <p>Instead of pushing harder, a conditional challenge was placed: <strong>"Sir, let me run a quick assessment on your public-facing systems. If I find 3 or more critical vulnerabilities, you agree to take this conversation forward."</strong> He agreed, confident in his team's defenses.</p>
+          </div>
+
+          <div class="case-step highlight-step reveal">
+            <div class="case-step-num">Step 04 · The Result</div>
+            <div class="case-step-title">5 Criticals. One 8 Years Old.</div>
+            <p>The assessment returned <strong>5 critical vulnerabilities</strong>. The most severe: an unpatched exposure that had been sitting undetected for <strong>8 years</strong>. When presented to the CISO and his team, a bank managing managing millions of customers' financial data, and the room shifted. The deal moved forward immediately.</p>
+          </div>
+
+        </div>
+
+        <div class="case-result">
+          <div class="case-result-icon">🔐</div>
+          <div class="case-result-text">
+            <div class="case-result-title">Outcome: Objection Turned Into Pipeline</div>
+            <p style="font-size:0.84rem; color:var(--muted); line-height:1.6;">A flat-out CISO rejection converted into an active enterprise deal through evidence, not pressure. The "we're safe" assumption was replaced with urgency backed by data. This is how cybersecurity SaaS gets sold to regulated financial institutions.</p>
+            <div class="case-result-stats">
+              <span class="result-stat">5 Criticals Found</span>
+              <span class="result-stat red">1 Exposure: 8 Years Old</span>
+              <span class="result-stat">CISO-Level Buy-In</span>
+              <span class="result-stat green">Deal: Active Pipeline</span>
+              <span class="result-stat">Suryoday SFB · 42L+ Customers</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -707,7 +1130,7 @@
         <div class="ach-icon">💰</div>
         <span class="ach-highlight">₹1 Crore+</span>
         <h3>Revenue Generated</h3>
-        <p>Directly sourced and closed deals contributing over ₹1Cr in revenue across roles — not assisted, not influenced. Closed.</p>
+        <p>Directly sourced and closed deals contributing over ₹1Cr in revenue. Not assisted, not influenced. Closed.</p>
       </div>
       <div class="ach-card reveal">
         <div class="ach-icon">🎯</div>
@@ -719,25 +1142,25 @@
         <div class="ach-icon">📊</div>
         <span class="ach-highlight">30%</span>
         <h3>Pipeline Growth</h3>
-        <p>Contributed to a 30% increase in qualified pipeline through structured outbound motions and sharper ICP targeting.</p>
+        <p>Contributed to 30% increase in qualified pipeline through structured outbound motions and sharper ICP targeting.</p>
       </div>
       <div class="ach-card reveal">
         <div class="ach-icon">🏆</div>
         <span class="ach-highlight">8× Awarded</span>
         <h3>Best Consultant</h3>
-        <p>Recognised eight times at Pickyourtrail for outstanding client outcomes and consultative selling — a record within the team.</p>
+        <p>Recognised eight times at Pickyourtrail for outstanding client outcomes, a consecutive record within the team.</p>
       </div>
       <div class="ach-card reveal">
         <div class="ach-icon">🌏</div>
         <span class="ach-highlight">4 Markets</span>
         <h3>International Exposure</h3>
-        <p>Sold across India, UAE, Australia, and Europe — adapting tone, pricing strategy and deal cycles to each market.</p>
+        <p>Sold across India, UAE, Australia, and Europe, adapting tone, pricing strategy, and deal cycles to each market.</p>
       </div>
       <div class="ach-card reveal">
         <div class="ach-icon">🏢</div>
         <span class="ach-highlight">Enterprise</span>
         <h3>Key Accounts</h3>
-        <p>Managed and closed deals with Pine Labs, Greyquest, Chola Investment, Fyers, and Uber Eats — not SMB, enterprise.</p>
+        <p>Managed and closed deals with Pine Labs, Greyquest, Chola Investment, Fyers, and Uber Eats. Not SMB, enterprise.</p>
       </div>
     </div>
   </div>
@@ -750,7 +1173,7 @@
   <div class="container">
     <p class="section-eyebrow">Performance</p>
     <h2 class="section-title">Deal Cycle Intelligence</h2>
-    <p class="section-sub">Metrics that matter — cycle length, deal size, and conversion rates.</p>
+    <p class="section-sub">Metrics that matter: cycle length, deal size, and conversion rates.</p>
 
     <div class="metrics-grid">
       <div class="metric-card reveal">
@@ -761,7 +1184,7 @@
       <div class="metric-card reveal">
         <div class="metric-label">Typical ASP Range</div>
         <div class="metric-value">₹8L – ₹25L</div>
-        <p class="metric-desc">Annual Recurring Revenue range — mix of SMB growth and enterprise deals</p>
+        <p class="metric-desc">Annual Recurring Revenue range, a mix of SMB growth and enterprise deals</p>
       </div>
       <div class="metric-card reveal">
         <div class="metric-label">Win Rate</div>
@@ -775,15 +1198,17 @@
       </div>
     </div>
 
-    <div style="margin-top: 3rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;">
-      <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
-        <strong style="color: var(--text);">Sales Philosophy:</strong> I don't just hit quota — I architect deals. Every interaction is mapped to MEDDIC stages. Pipeline is scrubbed weekly. Objections are documented and resolved systematically. The goal isn't faster — it's smarter.
+    <div class="philosophy-box reveal">
+      <p>
+        <strong>Sales Philosophy:</strong> I architect deals, not pipelines. Full-cycle ownership means I don't hand off qualified leads. I own discovery, demo coordination, objection handling, and closure. Pipeline is scrubbed weekly. Objections are documented and resolved systematically. The goal isn't faster. It's precision, and expansion.
       </p>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
+
+<!-- SKILLS -->
 <section class="skills-section" id="skills">
   <div class="container">
     <p class="section-eyebrow">Toolkit</p>
@@ -795,11 +1220,22 @@
         <div class="skill-group-title">Sales Execution</div>
         <div class="skill-pills">
           <span class="skill-pill">Full-Cycle Closing</span>
-          <span class="skill-pill">Discovery &amp; Qualification</span>
+          <span class="skill-pill">Discovery & Qualification</span>
           <span class="skill-pill">Objection Handling</span>
           <span class="skill-pill">Negotiation</span>
           <span class="skill-pill">Outbound Prospecting</span>
           <span class="skill-pill">Pipeline Management</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Team &amp; Leadership</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Team Mentoring</span>
+          <span class="skill-pill">Playbook Development</span>
+          <span class="skill-pill">Knowledge Sharing</span>
+          <span class="skill-pill">Sales Coaching</span>
+          <span class="skill-pill">Process Optimization</span>
+          <span class="skill-pill">Cross-functional Collaboration</span>
         </div>
       </div>
       <div class="skill-group reveal">
@@ -829,6 +1265,7 @@
         <div class="skill-pills">
           <span class="skill-pill">B2B SaaS</span>
           <span class="skill-pill">Fintech</span>
+          <span class="skill-pill">Cybersecurity</span>
           <span class="skill-pill">Travel Tech</span>
           <span class="skill-pill">IT Services</span>
         </div>
@@ -836,10 +1273,10 @@
     </div>
 
     <div class="markets-row">
-      <div class="market-badge"><span class="market-flag">🇮🇳</span> India</div>
-      <div class="market-badge"><span class="market-flag">🇦🇪</span> UAE</div>
-      <div class="market-badge"><span class="market-flag">🇦🇺</span> Australia</div>
-      <div class="market-badge"><span class="market-flag">🇪🇺</span> Europe</div>
+      <div class="market-badge">🇮🇳 India</div>
+      <div class="market-badge">🇦🇪 UAE</div>
+      <div class="market-badge">🇦🇺 Australia</div>
+      <div class="market-badge">🇪🇺 Europe</div>
     </div>
   </div>
 </section>
@@ -869,57 +1306,20 @@
 
 <div class="divider"></div>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials-section" id="testimonials">
-  <div class="container">
-    <p class="section-eyebrow">Social Proof</p>
-    <h2 class="section-title">What Managers Say</h2>
-    <p class="section-sub">Feedback from colleagues and leaders who've worked with me.</p>
-
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">
-          "Himanshu doesn't just prospect — he architects deals. His discovery conversations are surgical. He walks in with a 90-day roadmap and closes methodically. Doesn't cut corners on qualification."
-        </p>
-        <div class="testimonial-meta">
-          <div class="testimonial-author">Rahul Verma</div>
-          <div class="testimonial-role">Sales Lead, Broadway Infotech</div>
-        </div>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">
-          "Eight Best Consultant Awards in one year isn't luck. It's consistency. Himanshu's approach to client relationships is consultative, not transactional. Results speak for themselves."
-        </p>
-        <div class="testimonial-meta">
-          <div class="testimonial-author">Priya Nair</div>
-          <div class="testimonial-role">Manager, Pickyourtrail</div>
-        </div>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">
-          "Full-cycle closing as an SDR is rare. Himanshu owns every stage — from outbound strategy to contract negotiation. He brings an AE mindset to his current role. Natural fit for Account Executive positions."
-        </p>
-        <div class="testimonial-meta">
-          <div class="testimonial-author">Akshay Singh</div>
-          <div class="testimonial-role">Director, Perfect Ventures</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
+<!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <div class="contact-inner">
-      <p class="section-eyebrow">Let's Talk</p>
-      <h2 class="section-title">Get in Touch</h2>
+    <div class="contact-inner reveal">
+      <p class="section-eyebrow" style="justify-content:center;">Let's Connect</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-desc">
+        I'm actively exploring Account Executive opportunities at Series A-C SaaS, fintech, and international companies.
+        If you're building a sales team that values full-cycle ownership and enterprise credibility, let's talk.
+      </p>
       <div class="contact-links">
-        <a href="mailto:himanshu@email.com" class="contact-link">✉️ Email Me</a>
-        <a href="https://linkedin.com/in/himanshu" target="_blank" class="contact-link">💼 LinkedIn</a>
-        <a href="tel:+91XXXXXXXXXX" class="contact-link">📞 Call Me</a>
+        <a href="mailto:himanshunayak120@gmail.com" class="contact-link primary">✉️ Email Me</a>
+        <a href="https://linkedin.com/in/himanshukumar120" target="_blank" class="contact-link">💼 LinkedIn</a>
+        <a href="tel:+917078072045" class="contact-link">📞 +91 70780 72045</a>
       </div>
     </div>
   </div>
@@ -927,20 +1327,107 @@
 
 <footer>
   <p>Himanshu Kumar · B2B SaaS Sales Professional · Noida, Delhi NCR</p>
+  <div class="footer-status">
+    <span class="footer-dot"></span>
+    Updated June 2026
+  </div>
 </footer>
 
 <script>
-  // Scroll reveal
+  // ── Cursor Glow ──
+  const glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // ── Scroll Progress Bar ──
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollTop / docHeight;
+    progressBar.style.transform = `scaleX(${pct})`;
+  }, { passive: true });
+
+  // ── Scroll Reveal ──
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        revealObs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => revealObs.observe(el));
+
+  // ── Achievement Card Mouse Glow ──
+  document.querySelectorAll('.ach-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+
+  // ── Typewriter Effect ──
+  const phrases = [
+    'SDR @ Perfect Ventures',
+    'Enterprise Account Closer',
+    'Targeting AE Roles',
+    '₹1Cr+ Revenue Generated',
+    'MEDDIC + BANT Practitioner',
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const tw = document.getElementById('typewriter');
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      tw.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) {
+        deleting = true;
+        setTimeout(type, 1800);
+        return;
+      }
+    } else {
+      tw.textContent = phrase.slice(0, --ci);
+      if (ci === 0) {
+        deleting = false;
+        pi = (pi + 1) % phrases.length;
+      }
+    }
+    setTimeout(type, deleting ? 45 : 80);
+  }
+  setTimeout(type, 800);
+
+  // ── Stat Card Counter Animation ──
+  const counters = document.querySelectorAll('.stat-value');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeSlideUp 0.5s ease both';
+        counterObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObs.observe(c));
+
+  // ── Nav active state on scroll ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.style.color = '');
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.style.color = 'var(--accent)';
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => navObs.observe(s));
 </script>
 </body>
 </html>
